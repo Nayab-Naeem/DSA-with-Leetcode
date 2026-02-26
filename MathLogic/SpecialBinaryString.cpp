@@ -1,4 +1,4 @@
-Given a special binary string s, you can swap two consecutive 
+/* Given a special binary string s, you can swap two consecutive 
 non-empty special substrings any number of times.
 
 Return the lexicographically largest string possible.
@@ -13,3 +13,37 @@ Language      : C++
 Time Complexity  : O(n^2 log n)
 Space Complexity : O(n)
 */
+
+
+class Solution {
+public:
+    string makeLargestSpecial(string s) {
+        vector<string> parts;
+
+        int count = 0, start = 0;
+
+        for (int i = 0; i < s.size(); i++) 
+        {
+            if (s[i] == '1') count++;
+            else count--;
+
+            // When count becomes zero → we found a special substring
+            if (count == 0)
+             {
+                // Recursively solve inner part
+                string inner = s.substr(start + 1, i - start - 1);
+                parts.push_back("1" + makeLargestSpecial(inner) + "0");
+                start = i + 1;
+            }
+        }
+
+        // Sort in descending order to maximize lexicographically
+        sort(parts.begin(), parts.end(), greater<string>());
+
+        string result;
+        for (auto &p : parts)
+            result += p;
+
+        return result;
+    }
+};
