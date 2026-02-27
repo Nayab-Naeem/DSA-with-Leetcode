@@ -21,7 +21,8 @@ public:
         vector<vector<int>> result;
         int n = nums.size();
         
-        sort(nums.begin(), nums.end());
+        sort(nums.begin(), nums.end()); 
+     //sorting for using two pointers and skipping duplicates
         
         for(int i = 0; i < n - 3; i++) {
             
@@ -38,15 +39,10 @@ public:
                 
                 while(left < right) {
                     
-                    long long sum = (long long)nums[i] 
-                                    + nums[j] 
-                                    + nums[left] 
-                                    + nums[right];
+                    long long sum = (long long)nums[i] + nums[j] + nums[left] + nums[right];
                     
                     if(sum == target) {
-                        result.push_back(
-                            {nums[i], nums[j], nums[left], nums[right]}
-                        );
+                        result.push_back( {nums[i], nums[j], nums[left], nums[right]} );
                         
                         // Skip duplicates
                         while(left < right && nums[left] == nums[left+1]) left++;
@@ -55,7 +51,7 @@ public:
                         left++;
                         right--;
                     }
-                    else if(sum < target) {
+                    else if(sum < target) {  //If sum too small → move left ,If sum too big   → move right ←
                         left++;
                     }
                     else {
@@ -68,3 +64,7 @@ public:
         return result;
     }
 };
+//Structure of the array after sorting:
+// i   j    left →        ← right
+// |   |      |              |
+// -2  -1     0    0    1    2
