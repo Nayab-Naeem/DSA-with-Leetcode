@@ -14,7 +14,7 @@ public:
      int prev2 =1;
      int prev1 =2;
      int current;
-     for (int i =3;i<=n;i++)
+     for (int i =3;i<=n;i++)        
      {
         current = prev1 + prev2;
         prev2 = prev1;
